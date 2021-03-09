@@ -37,10 +37,13 @@ for ( var i = 0; i < nBombe; i++ ) {
 
 console.log("Numeri bomba: " + bombs);
 function startGame() {
-  var level = prompt("INSERISCI: \n  0 = livello difficile \n  1 = livello normale \n  2 = livello facile")
-  if ( level == "1" ) {
+  var level = parseInt( prompt("INSERISCI: \n0 = livello difficile \n1 = livello normale \n2 = livello facile") );
+  while ( level < 0 || level > 2 || isNaN( level ) ) {
+    level = parseInt( prompt("Il valore inserito non è valido \nINSERISCI: \n0 = livello difficile \n1 = livello normale \n2 = livello facile") );
+  }
+  if ( level == 1 ) {
     maxNum = 80;
-  } else if ( level == "2" ) {
+  } else if ( level == 2 ) {
     maxNum = 50;
   }
   for ( var i = 0; i < maxNum - nBombe ; i++ ) {
