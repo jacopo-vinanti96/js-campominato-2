@@ -2,13 +2,10 @@
 var bombs = [],
     maxNum = 100,
     minNum = 1,
-    nBombe = 16;
-    output = document.getElementById('output'),
     userNum = 0,
     userNumList = [],
-    boom = new Audio('audio/oooh.mp3'),
+    drum = new Audio('audio/drum.mp3'),
     kids = new Audio('audio/hurray.mp3');
-
 // Genera un numero casuale
 function genRandomNum( max, min ) {
   return Math.floor( Math.random() * (max - min + 1) ) + min;
@@ -26,7 +23,7 @@ function numControl( array, num ) {
 }
 
 // Ciclo for per generare i numeri con un ciclo for annidato per controllare che si adiverso dagli altri numeri
-for ( var i = 0; i < nBombe; i++ ) {
+for ( var i = 0; i < 16; i++ ) {
   bombs[i] = genRandomNum( maxNum, minNum );
   if ( i >= 1 ) {
     if ( numControl( bombs, bombs[i] ) == true ) {
@@ -37,29 +34,26 @@ for ( var i = 0; i < nBombe; i++ ) {
 
 console.log("Numeri bomba: " + bombs);
 function startGame() {
-  var level = prompt("INSERISCI: \n  0 = livello difficile \n  1 = livello normale \n  2 = livello facile")
-  if ( level == "1" ) {
-    maxNum = 80;
-  } else if ( level == "2" ) {
-    maxNum = 50;
+for ( var i = 0; i < maxNum - 16 ; i++ ) {
+  userNum = parseInt( document.getElementById('user-num').value );
+  console.log(userNum);
+  while ( isNaN( userNum ) ) {
+    userNum = parseInt( prompt("Il valore inserito non è valido, inserisci un numero da 1 a 100") );
   }
-  for ( var i = 0; i < maxNum - nBombe ; i++ ) {
-    userNum = parseInt( prompt("Inserisci un numero da 1 a 100") );
-    while ( userNum < minNum || userNum > maxNum || isNaN( userNum ) ) {
-      userNum = parseInt( prompt("Il valore inserito non è valido, inserisci un numero da 1 a 100") );
-    }
-    userNumList[i] = userNum;
+  userNumList[i] = userNum;
     while ( i >= 1 && numControl( userNumList, userNum ) == true ) {
       userNum = parseInt( prompt("Inserisci un numero da 1 a 100, non barare!!") );
     }
+    drum.play();
     if ( numControl( bombs, userNum ) == true ) {
-      output.innerHTML = "Hai perso... Punteggio: " + i;
+      console.log("Hai perso");
+      console.log("Punteggio: " + ( i ) );
       i = maxNum;
-      boom.play();
-    } else if ( userNumList.length == maxNum - nBombe ) {
-      output.innerHTML = "Hai vinto!! Complimenti!!";
+    } else if ( userNumList.length == 5 ) {
+      console.log("Hai vinto!! Complimenti!!");
       i = maxNum;
-      kids.play();
+    } else {
+      setTimeout(() => {  kids.play(); }, 2000);
     }
   }
 }
