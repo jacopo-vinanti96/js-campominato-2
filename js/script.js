@@ -18,26 +18,25 @@ function genRandomNum( max, min ) {
 function numControl( array, num ) {
   for ( var j = 0; j < array.length - 1; j++ ) {
     if ( num == array[j] ) {
-      console.log( num + " dupe");
       return true;
     }
   }
   return false;
 }
 
-// Ciclo for per generare i numeri con un ciclo for annidato per controllare che si adiverso dagli altri numeri
-for ( var i = 0; i < nBombe; i++ ) {
-  bombs[i] = genRandomNum( maxNum, minNum );
-  if ( i >= 1 ) {
-    if ( numControl( bombs, bombs[i] ) == true ) {
-      i -= 1;
+
+function startGame() {
+  // Ciclo for per generare i numeri con un ciclo for annidato per controllare che si adiverso dagli altri numeri
+  for ( var j = 0; j < nBombe; j++ ) {
+    bombs[i] = genRandomNum( maxNum, minNum );
+    if ( j >= 1 ) {
+      if ( numControl( bombs, bombs[j] ) == true ) {
+        j -= 1;
+      }
     }
   }
-}
-
-console.log("Numeri bomba: " + bombs);
-function startGame() {
-  var level = parseInt( prompt("INSERISCI: \n0 = livello difficile \n1 = livello normale \n2 = livello facile") );
+  console.log("Numeri bomba: " + bombs);
+  var level = parseInt( prompt("INSERISCI: \n0 = livello facile \n1 = livello normale \n2 = livello difficile") );
   while ( level < 0 || level > 2 || isNaN( level ) ) {
     level = parseInt( prompt("Il valore inserito non è valido \nINSERISCI: \n0 = livello difficile \n1 = livello normale \n2 = livello facile") );
   }
