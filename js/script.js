@@ -28,7 +28,7 @@ function numControl( array, num ) {
 function startGame() {
   // Ciclo for per generare i numeri con un ciclo for annidato per controllare che si adiverso dagli altri numeri
   for ( var j = 0; j < nBombe; j++ ) {
-    bombs[i] = genRandomNum( maxNum, minNum );
+    bombs[j] = genRandomNum( maxNum, minNum );
     if ( j >= 1 ) {
       if ( numControl( bombs, bombs[j] ) == true ) {
         j -= 1;
@@ -46,13 +46,13 @@ function startGame() {
     maxNum = 50;
   }
   for ( var i = 0; i < maxNum - nBombe ; i++ ) {
-    userNum = parseInt( prompt("Inserisci un numero da 1 a 100") );
+    userNum = parseInt( prompt("Inserisci un numero da " + minNum + " a " + maxNum ) );
     while ( userNum < minNum || userNum > maxNum || isNaN( userNum ) ) {
-      userNum = parseInt( prompt("Il valore inserito non è valido, inserisci un numero da 1 a 100") );
+      userNum = parseInt( prompt("Il valore inserito non è valido, Inserisci un numero da " + minNum + " a " + maxNum) );
     }
     userNumList[i] = userNum;
     while ( i >= 1 && numControl( userNumList, userNum ) == true ) {
-      userNum = parseInt( prompt("Inserisci un numero da 1 a 100, non barare!!") );
+      userNum = parseInt( prompt("Inserisci un numero da " + minNum + " a " + maxNum + ", non barare!!") );
     }
     if ( numControl( bombs, userNum ) == true ) {
       output.innerHTML = "Hai perso... Punteggio: " + i;
